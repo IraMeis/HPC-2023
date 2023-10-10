@@ -14,7 +14,7 @@
 (для массива double - cublasDgemm, за контекст отвечает cublasHandle_t).
 
 Графики получены для  
-lr1-2.ipynb;  
+lr1-2.ipynb [colab](https://drive.google.com/file/d/1WC7Kj7vAP50uCvAhsZko9JZ1IdiROllK/view?usp=sharing);  
 CPU - Intel(R) Xeon(R) CPU @ 2.00GHz (2 ядра, 4 потока);  
 GPU - Tesla T4.
 
