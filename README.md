@@ -13,13 +13,13 @@
 велосипедов используется cublas'овское апи
 (для массива double - cublasDgemm, за контекст отвечает cublasHandle_t).
 
-Графики получены для  
+Графики для  
 lr1-2.ipynb [colab](https://drive.google.com/file/d/1WC7Kj7vAP50uCvAhsZko9JZ1IdiROllK/view?usp=sharing);  
-CPU - Intel(R) Xeon(R) CPU @ 2.00GHz (2 ядра, 4 потока);  
+CPU - Intel(R) Xeon(R) CPU @ 2.00GHz (1 ядро, 2 потока);  
 GPU - Tesla T4.
 
-![График времени](https://github.com/IraMeis/HPC-2023/blob/main/lr1/tm.png)
-![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr1/ac.png)
+![График времени](https://github.com/IraMeis/HPC-2023/blob/main/lr1/tm.png)  
+![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr1/ac.png)  
 
 Еще немного про вариант с питоном (и 25 мин джобу).  
 Запускала у себя урезанную версию compare (только cpu),
@@ -32,3 +32,45 @@ Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz,
 | 100       | 200       | 400       | 600       | 800       | 1000      | 1200     |
 |-----------|-----------|-----------|-----------|-----------|-----------|----------|
 | 0.376113s | 2.994133s | 24.92170s | 94.80045  | 213.1737s | 427.5922s | 721.610s |
+
+## Vector Sum
+
+Еще одна лаба в стиле "сделай и на питоне и на плюсах", 
+но тут реализация совпадает. Редукция:
+нити блока добаляют свой элемент из общего вектора в 
+буфер разделяемой памяти,
+после синхронизации 0 нить суммирует все что находится 
+в буфере и атомарно запиывает в результирующую 
+глобальную переменную.
+
+
+Графики:
+lr2.ipynb [colab](https://drive.google.com/file/d/1J0OMkKVSYwoSxUw92XqMsxzpi2AIpkbU/view?usp=sharing);  
+CPU - Intel(R) Xeon(R) CPU @ 2.00GHz (1 ядро, 2 потока);  
+GPU - Tesla T4.
+
+**C++**  
+На интервале N 1e3 - 5e6 получается ускорение до 20 - 23 раз.  
+![График времени](https://github.com/IraMeis/HPC-2023/blob/main/lr2/cpp-tm.png)  
+![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr2/cpp-ac.png)  
+
+
+**Python**  
+Для питона сравнивались gpu, cpu/обычный for и cpu/np.sum на 1е3 - 1е8.
+Numpy выстрее всех (ожидаемо).
+
+Тут интересен скорее график падения ускорения нампая к gpu.  
+![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr2/np2gpu.png)  
+Еще наблюдение - питон-gpu по времени 
+выдает стабильно ок. 0.15с ( ?? питоновские куда-библиотеки,
+переводящие в плюсы, в данном случае не 
+могут нашлепать более оптимизированного кода ??), 
+поэтому ускрорение возникает 
+только после 1е6, до этой размерности 
+последовательное быстрее. 
+
+
+Ускорение вообще (gpu vs cpu/обычный for)  
+![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr2/py-ac1.png)  
+Ускорение появляется (gpu vs cpu/обычный for)  
+![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr2/py-ac2.png)  
