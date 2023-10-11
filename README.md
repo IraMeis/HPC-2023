@@ -13,7 +13,7 @@
 велосипедов используется cublas'овское апи
 (для массива double - cublasDgemm, за контекст отвечает cublasHandle_t).
 
-Графики для  
+Графики для:  
 lr1-2.ipynb [colab](https://drive.google.com/file/d/1WC7Kj7vAP50uCvAhsZko9JZ1IdiROllK/view?usp=sharing);  
 CPU - Intel(R) Xeon(R) CPU @ 2.00GHz (1 ядро, 2 потока);  
 GPU - Tesla T4.
@@ -44,7 +44,7 @@ Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz,
 глобальную переменную.
 
 
-Графики:
+Графики для:  
 lr2.ipynb [colab](https://drive.google.com/file/d/1J0OMkKVSYwoSxUw92XqMsxzpi2AIpkbU/view?usp=sharing);  
 CPU - Intel(R) Xeon(R) CPU @ 2.00GHz (1 ядро, 2 потока);  
 GPU - Tesla T4.
