@@ -57,12 +57,12 @@ GPU - Tesla T4.
 
 **Python**  
 Для питона сравнивались gpu, cpu/обычный for и cpu/np.sum на 1е3 - 1е8.
-Numpy выстрее всех (ожидаемо).
+Numpy быстрее всех (ожидаемо).
 
 Тут интересен скорее график падения ускорения нампая к gpu.  
 ![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr2/np2gpu.png)  
 Еще наблюдение - питон-gpu по времени 
-выдает стабильно ок. 0.15с ( ?? питоновские куда-библиотеки,
+выдает стабильно ок. 0.15с (?? питоновские куда-библиотеки,
 переводящие в плюсы, в данном случае не 
 могут нашлепать более оптимизированного кода ??), 
 поэтому ускрорение возникает 
@@ -74,3 +74,12 @@ Numpy выстрее всех (ожидаемо).
 ![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr2/py-ac1.png)  
 Ускорение появляется (gpu vs cpu/обычный for)  
 ![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr2/py-ac2.png)  
+
+**C++ vs Python**   
+Разница по времени между последовательными и 
+куда-версиями на плюсах и питоне.  
+![График времени](https://github.com/IraMeis/HPC-2023/blob/main/lr2/dif-tm.png)  
+![График времени](https://github.com/IraMeis/HPC-2023/blob/main/lr2/dif-cuda.png)  
+Ускорение плюсов к питону.  
+![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr2/acc-seq.png)   
+![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr2/acc-cuda.png)   
