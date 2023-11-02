@@ -14,7 +14,7 @@
 (для массива double - cublasDgemm, за контекст отвечает cublasHandle_t).
 
 Графики для:  
-lr1-2.ipynb [colab](https://drive.google.com/file/d/1WC7Kj7vAP50uCvAhsZko9JZ1IdiROllK/view?usp=sharing);  
+[lr1-2.ipynb](https://drive.google.com/file/d/1WC7Kj7vAP50uCvAhsZko9JZ1IdiROllK/view?usp=sharing);  
 CPU - Intel(R) Xeon(R) CPU @ 2.00GHz (1 ядро, 2 потока);  
 GPU - Tesla T4.
 
@@ -45,7 +45,7 @@ Intel(R) Core(TM) i7-8565U CPU @ 1.80GHz,
 
 
 Графики для:  
-lr2.ipynb [colab](https://drive.google.com/file/d/1J0OMkKVSYwoSxUw92XqMsxzpi2AIpkbU/view?usp=sharing);  
+[lr2.ipynb](https://drive.google.com/file/d/1J0OMkKVSYwoSxUw92XqMsxzpi2AIpkbU/view?usp=sharing);  
 CPU - Intel(R) Xeon(R) CPU @ 2.00GHz (1 ядро, 2 потока);  
 GPU - Tesla T4.
 
@@ -83,3 +83,32 @@ Numpy быстрее всех (ожидаемо).
 Ускорение плюсов к питону.  
 ![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr2/acc-seq.png)   
 ![График ускорения](https://github.com/IraMeis/HPC-2023/blob/main/lr2/acc-cuda.png)   
+
+## Bilateral Filtering
+Python. Параллелится вычисление нового значения
+для каждого пикселя (одна нить - один пиксель):
+cuda.grid(2) выдает уникальные 2д координаты
+треда в гриде (маппинг структуры 2д грида в 
+2д матрицу), проверяется что координата
+не выходит за границы картинки, далее 
+расчет заначения по формуле.  
+
+Значения получены для:  
+[lr3.ipynb](https://drive.google.com/file/d/1oh6_QK-XlyKD8WV9t36N8rZaDkJThhyt/view?usp=sharing);  
+CPU - Intel(R) Xeon(R) CPU @ 2.00GHz (1 ядро, 2 потока);  
+GPU - Tesla T4.
+
+| dim       | cpu       | gpu        | acceleration |
+|:----------|:----------|:-----------|:-------------|
+| 224x224   | 18.980194 | 0.01045328 | 1815.7165    |
+| 512x512   | 96.438258 | 0.03741945 | 2577.2223    |
+| 1000x1000 | 375.08709 | 0.13271145 | 2826.3354    |
+
+Питон медленный...
+
+Котэ с блюром и без  
+![кот2](https://github.com/IraMeis/HPC-2023/blob/main/lr3/cat_bl.png)
+![кот1](https://github.com/IraMeis/HPC-2023/blob/main/lr3/cat_no_bl.png)  
+
+## Substrings Search  
+Python. 
